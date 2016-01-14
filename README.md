@@ -1,2 +1,2 @@
 # ticket-v1
-SIstima kratiseon eisitirion se cinema
+Σύστημα κρατήσειων σε κινηματογράφο. 1η εκδόση
