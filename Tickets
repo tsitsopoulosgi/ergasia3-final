@@ -26,6 +26,7 @@ public class Tickets {
 		
 		//stelnw to model kai to view poy dimiourgisa ston Controller
 		Controller controller = new Controller(model, view);
+		controller.control();
 		
 		//kanw orato to view stin othoni
 		view.setVisible(true);
