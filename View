@@ -18,20 +18,21 @@ import java.awt.event.ActionListener;
 import java.util.Date;
 
 import javax.swing.AbstractListModel;
+import javax.swing.SwingConstants;
 
 
 public class View extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField nameField;
-	private JTextField surnameField;
-	private JTextField phoneField;
-	private JButton buyButton;
-	private JList<String> list;
-	private JSpinner numberOfTickets;
-	private JRadioButton regButton;
-	private JRadioButton studentButton;
+	private JTextField name;
+	private JTextField surname;
+	private JTextField phone;
+	private JButton buyBtn;
+	private JList<String> moviesList;
+	private JSpinner numOfTickets;
+	private JRadioButton regular;
+	private JRadioButton student;
 	private long n = System.currentTimeMillis()+ 86400 * 14 * 1000;
 	private Date next2Weeks=new Date(n);
 	private ButtonGroup group;
@@ -47,51 +48,52 @@ public class View extends JFrame{
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel titleLabel = new JLabel("\u0391\u03B3\u03BF\u03C1\u03AC \u0395\u03B9\u03C3\u03B9\u03C4\u03B7\u03C1\u03AF\u03BF\u03C5");
-		titleLabel.setBounds(180, 11, 121, 14);
+		JLabel titleLabel = new JLabel("\u03A6\u03CC\u03C1\u03BC\u03B1 \u039A\u03C1\u03AC\u03C4\u03B7\u03C3\u03B7\u03C2 \u0395\u03B9\u03C3\u03B9\u03C4\u03B7\u03C1\u03AF\u03BF\u03C5");
+		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		titleLabel.setBounds(10, 13, 414, 14);
 		contentPane.add(titleLabel);
 		
 		JLabel nameLabel = new JLabel("\u038C\u03BD\u03BF\u03BC\u03B1");
 		nameLabel.setBounds(10, 38, 46, 14);
 		contentPane.add(nameLabel);
 		
-		nameField = new JTextField();
-		nameField.setBounds(10, 59, 86, 20);
-		contentPane.add(nameField);
-		nameField.setColumns(10);
+		name = new JTextField();
+		name.setBounds(10, 59, 86, 20);
+		contentPane.add(name);
+		name.setColumns(10);
 		
-		JLabel surnameLabel = new JLabel("\u0395\u03C0\u03AF\u03B8\u03B5\u03C4\u03BF");
-		surnameLabel.setBounds(151, 38, 46, 14);
-		contentPane.add(surnameLabel);
+		JLabel surnameLbl = new JLabel("\u0395\u03C0\u03AF\u03B8\u03B5\u03C4\u03BF");
+		surnameLbl.setBounds(151, 38, 46, 14);
+		contentPane.add(surnameLbl);
 		
-		surnameField = new JTextField();
-		surnameField.setBounds(151, 59, 86, 20);
-		contentPane.add(surnameField);
-		surnameField.setColumns(10);
+		surname = new JTextField();
+		surname.setBounds(151, 59, 86, 20);
+		contentPane.add(surname);
+		surname.setColumns(10);
 		
-		JLabel catLabel = new JLabel("\u03A4\u03CD\u03C0\u03BF\u03C2 \u0395\u03B9\u03C3\u03B9\u03C4\u03B7\u03C1\u03AF\u03BF\u03C5");
-		catLabel.setBounds(10, 131, 79, 14);
-		contentPane.add(catLabel);
+		JLabel catLbl = new JLabel("\u03A4\u03CD\u03C0\u03BF\u03C2 \u0395\u03B9\u03C3\u03B9\u03C4\u03B7\u03C1\u03AF\u03BF\u03C5");
+		catLbl.setBounds(10, 131, 79, 14);
+		contentPane.add(catLbl);
 		
-		regButton = new JRadioButton("\u039A\u03B1\u03BD\u03BF\u03BD\u03B9\u03BA\u03CC - 9\u20AC");
-		regButton.setSelected(true);
-		regButton.setBounds(10, 161, 109, 23);	
-		contentPane.add(regButton);
+		regular = new JRadioButton("\u039A\u03B1\u03BD\u03BF\u03BD\u03B9\u03BA\u03CC - 8\u20AC");
+		regular.setSelected(true);
+		regular.setBounds(10, 161, 109, 23);	
+		contentPane.add(regular);
 		
-		studentButton = new JRadioButton("\u03A6\u03BF\u03B9\u03C4\u03B7\u03C4\u03B9\u03BA\u03CC - 6\u20AC");
-		studentButton.setBounds(10, 187, 109, 23);
-		contentPane.add(studentButton);
+		student = new JRadioButton("\u03A6\u03BF\u03B9\u03C4\u03B7\u03C4\u03B9\u03BA\u03CC - 4\u20AC");
+		student.setBounds(10, 187, 109, 23);
+		contentPane.add(student);
 		
 		group = new ButtonGroup();
-		group.add(regButton);
-		group.add(studentButton);
+		group.add(regular);
+		group.add(student);
 		
 		
-		list = new JList<String>();
-		list.setVisibleRowCount(3);
-		list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-		list.setBounds(10, 345, 142, 66);
-		list.setModel(new AbstractListModel<String>() {
+		moviesList = new JList<String>();
+		moviesList.setVisibleRowCount(3);
+		moviesList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+		moviesList.setBounds(10, 345, 142, 66);
+		moviesList.setModel(new AbstractListModel<String>() {
 			private static final long serialVersionUID = 1L;
 			public int getSize() {
 				return numOfMovies;
@@ -100,20 +102,20 @@ public class View extends JFrame{
 				return m[index];
 			}
 		});
-		list.setSelectedIndex(0);
-		contentPane.add(list);
+		moviesList.setSelectedIndex(0);
+		contentPane.add(moviesList);
 		
-		JLabel dateLabel = new JLabel("\u0397\u03BC\u03B5\u03C1\u03BF\u03BC\u03B7\u03BD\u03AF\u03B1");
-		dateLabel.setBounds(151, 131, 86, 14);
-		contentPane.add(dateLabel);
+		JLabel dateLbl = new JLabel("\u0397\u03BC\u03B5\u03C1\u03BF\u03BC\u03B7\u03BD\u03AF\u03B1");
+		dateLbl.setBounds(151, 131, 86, 14);
+		contentPane.add(dateLbl);
 		
-		JLabel movieLabel = new JLabel("\u03A4\u03B1\u03B9\u03BD\u03AF\u03B1");
-		movieLabel.setBounds(10, 320, 46, 14);
-		contentPane.add(movieLabel);
+		JLabel movieLbl = new JLabel("\u03A4\u03B1\u03B9\u03BD\u03AF\u03B1");
+		movieLbl.setBounds(10, 320, 46, 14);
+		contentPane.add(movieLbl);
 		
-		buyButton = new JButton("\u0391\u03B3\u03BF\u03C1\u03AC");
-		buyButton.setBounds(314, 448, 89, 23);
-		contentPane.add(buyButton);
+		buyBtn = new JButton("\u039A\u03C1\u03AC\u03C4\u03B7\u03C3\u03B7");
+		buyBtn.setBounds(314, 448, 89, 23);
+		contentPane.add(buyBtn);
 		
 		dayChooser = new JDayChooser();
 		dayChooser.setBounds(151, 154, 161, 133);
@@ -125,73 +127,69 @@ public class View extends JFrame{
 		numberLabel.setBounds(335, 131, 89, 14);
 		contentPane.add(numberLabel);
 		
-		numberOfTickets = new JSpinner();
-		numberOfTickets.setBounds(345, 162, 45, 20);
-		contentPane.add(numberOfTickets);
+		numOfTickets = new JSpinner();
+		numOfTickets.setBounds(345, 162, 45, 20);
+		contentPane.add(numOfTickets);
 		
-		JLabel phoneLabel = new JLabel("\u03A4\u03B7\u03BB\u03AD\u03C6\u03C9\u03BD\u03BF");
-		phoneLabel.setBounds(294, 38, 79, 14);
-		contentPane.add(phoneLabel);
+		JLabel phoneLbl = new JLabel("\u03A4\u03B7\u03BB\u03AD\u03C6\u03C9\u03BD\u03BF");
+		phoneLbl.setBounds(294, 38, 79, 14);
+		contentPane.add(phoneLbl);
 		
-		phoneField = new JTextField(10);
-		phoneField.setBounds(294, 59, 86, 20);
-		contentPane.add(phoneField);
-		phoneField.setColumns(10);
+		phone = new JTextField(10);
+		phone.setBounds(294, 59, 86, 20);
+		contentPane.add(phone);
+		phone.setColumns(10);
 		
-		JScrollPane scrollPane = new JScrollPane(list);
+		JScrollPane scrollPane = new JScrollPane(moviesList);
 		scrollPane.setBounds(10, 345, 187, 74);
 		
 		contentPane.add(scrollPane);
-		
-		
-	
-	
-		}
+	}
 
 	public int getDate(){
 		return dayChooser.getDay();
 	}
-	public String getNameField() {
-		
-		return nameField.getText();
+	
+	public String getName() {
+		return name.getText();
 	}
 
 
-	public String getSurnameField() {
-		return surnameField.getText();
+	public String getSurname() {
+		return surname.getText();
 	}
 
 
-	public String getPhoneField() {
-		return phoneField.getText();
+	public String getPhone() {
+		return phone.getText();
 	}
 	
 	public String getSelectedMovie(){
-		return list.getSelectedValue();	
+		return moviesList.getSelectedValue();	
 	}
 	
-	public int getSeats(){
-		return (Integer)numberOfTickets.getValue();
+	public int getSelectedSeats(){
+		return (Integer)numOfTickets.getValue();
 	}
 	
 	public boolean regIsSelected(){
-		return regButton.isSelected();
+		return regular.isSelected();
 	}
 	
 	public boolean hasSelectedSeats(){
-		return (Integer)numberOfTickets.getValue()>0;
+		return (Integer)numOfTickets.getValue()>0;
 	}
 	
 	public void reset(){
-		nameField.setText("");
-		surnameField.setText("");
-		phoneField.setText("");
-		numberOfTickets.setValue(0);
-		list.setSelectedIndex(0);
+		name.setText("");
+		surname.setText("");
+		phone.setText("");
+		numOfTickets.setValue(0);
+		moviesList.setSelectedIndex(0);
 	}
 	
 	//vazw akroati sto koumpi buy auton poy stelnei o controller
 	public void addListener(ActionListener con){
-		buyButton.addActionListener(con);
+		buyBtn.addActionListener(con);
 	}
 }
