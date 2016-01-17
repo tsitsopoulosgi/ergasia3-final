@@ -1,85 +1,84 @@
 import java.util.ArrayList;
-import java.util.Date;
 
 
 public class Model {
 	
 	//2 arraylist gia tis tainies kai tis antistoixes theseis
-	private ArrayList<String> movieList;
-	private ArrayList<Integer> seats ;
+	private ArrayList<String> moviesList;
+	private ArrayList<Integer> seatsList ;
 	private Integer[] s = new Integer[100];
 	private String[] m = new String[100];
 
 	
 			
 	public Model(){
-		movieList = new ArrayList<String>();
-		seats = new ArrayList<Integer>();
+		moviesList = new ArrayList<String>();
+		seatsList = new ArrayList<Integer>();
 	}
 	
 	public int numberOfMovies(){
-		return	movieList.size();
+		return	moviesList.size();
 	}
 	
 	//methodos gia tin meiwsi twn thesewn stin thesi i kata x
 	public void decrease(int i, int x){
-		seats.set(i, seats.get(i)-x);
+		seatsList.set(i, seatsList.get(i)-x);
 	}
 	
 	public boolean hasFreeSeats(int i){
-		return seats.get(i)==0?false:true;
+		return seatsList.get(i)==0?false:true;
 	}
 	
 	//prosthiki tainiwn
 	public void addMovie(String aMovie){
-		movieList.add(aMovie);
+		moviesList.add(aMovie);
 	}
 	
 	//prosthiki thesewn gia tin antistoixi tainia
 	public void addSeats(int numOfSeats){
-		seats.add(numOfSeats);
+		seatsList.add(numOfSeats);
 	}
 	
 	//onoma tainias
 	public String getMovie(int i){
-		return movieList.get(i);
+		return moviesList.get(i);
 	}
 	
-	public int getNumOfSeats(String theMovie){
+	public int getMovieSeats(String theMovie){
 		int pos=0;
-		for (int i = 0; i < movieList.size(); i++)
+		for (int i = 0; i < moviesList.size(); i++)
 	      {
-	         if(movieList.get(i)==theMovie)
+	         if(moviesList.get(i)==theMovie)
 	        	 pos=i;
 	      }
 	      
-		return seats.get(pos);	
+		return seatsList.get(pos);	
 	}
 	//epistrefei oli tin lista
-	public ArrayList<String> getMovieList() {
-		return movieList;
+	public ArrayList<String> getMoviesList() {
+		return moviesList;
 	}
 	
 	public String[] moviesArray(){
-		return ArrayFromList(m, movieList);
+		return ArrayFromList(m, moviesList);
 	}
 	
 	public Integer[] seatsArray(){
-		return ArrayFromList(s, seats);
+		return ArrayFromList(s, seatsList);
 	}
 	
-	private <T> T[] ArrayFromList(T[] arr, ArrayList<T> arrayList)
+	private <T> T[] ArrayFromList(T[] array, ArrayList<T> arrayList)
 	   {
 	      for (int i = 0; i < arrayList.size(); i++)
 	      {
-	         arr[i] = arrayList.get(i);
+	    	  array[i] = arrayList.get(i);
 	      }
-	      return arr;
+	      return array;
 	}
 	
-	public void update(String selMovie,int numOfSeats){
-		for(int x=0;x<movieList.size();x++){
-			if(selMovie==movieList.get(x)&& hasFreeSeats(x)){
+	public void update(String selectedMovie,int numOfSeats){
+		for(int x=0;x<moviesList.size();x++){
+			if(selectedMovie==moviesList.get(x)&& hasFreeSeats(x)){
 				decrease(x,numOfSeats);
 			}
 		}
