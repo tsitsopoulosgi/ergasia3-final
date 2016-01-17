@@ -1,55 +1,60 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JOptionPane;
 
 
 public class Controller{
 	private Model model;
 	private View view;
+	private ActionListener BuyListener;
 	
 	//erxetai to model kai to view apo tin main kai vazw ton akroati sto buyButton
 	public Controller(Model model, View view){
 		this.model=model;
 		this.view=view;
-		view.addListener(new BuyListener());
 	}
 	
 	
 	
 	//akroatis gia to koumpi buy
-	class BuyListener implements ActionListener{
-		public void actionPerformed(ActionEvent e) {
-			if(isStringAlpha(view.getNameField())&& isStringAlpha(view.getSurnameField()) && isNumeric(view.getPhoneField()) && view.hasSelectedSeats() ){
-				model.update(view.getSelectedMovie(), view.getSeats());
-				int ticketcost=view.regIsSelected()?9:6;
-				
-				JOptionPane.showMessageDialog(null, "Στοιχεία κράτησης: "+view.getSurnameField()+" "+view.getNameField()+
-						"\nΑριθμός εισιτηρίων: "+view.getSeats()+
-						"\nΣυνολική αξία εισιτηρίων: "+ticketcost*view.getSeats()+"\u20ac"+
-						"\nΗ αγορά σας για την ταινία "+view.getSelectedMovie()+" στις "+view.getDate() +" πραγματοποιήθηκε με επιτυχία."+
-						"\nΥπόλοιπο διαθέσιμων θέσεων:"+model.getNumOfSeats(view.getSelectedMovie())+
-						"\nΚαλή διασκέδαση."
-						, "Επιτυχής Αγορά", 1);		
-				view.reset();	
-			}else if(!isStringAlpha(view.getNameField())){
-				view.reset();	
-				JOptionPane.showMessageDialog(null,"Λάθος όνομα","Λάθος εισαγωγή",1);
-			}else if(!isStringAlpha(view.getSurnameField())){
-				view.reset();	
-				JOptionPane.showMessageDialog(null,"Λάθος επίθετο","Λάθος εισαγωγή",1);
-			}else if(!isNumeric(view.getPhoneField())){
-				view.reset();	
-				JOptionPane.showMessageDialog(null,"Λάθος τηλέφωνο","Λάθος εισαγωγή",1);
-			}else if(!view.hasSelectedSeats()){
-				view.reset();	
-				JOptionPane.showMessageDialog(null,"Παρακαλώ επιλέξτε θέσεις","Λάθος εισαγωγή",1);
+	public void control(){
+		BuyListener = new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				linkButton();
 			}
-				
-		}
-		
+			
+		};
+		view.addListener(BuyListener);
 	}
+
 	
+	public void linkButton(){
+		if(isStringAlpha(view.getName())&& isStringAlpha(view.getSurname()) && isNumber(view.getPhone()) && view.hasSelectedSeats() ){
+			model.update(view.getSelectedMovie(), view.getSelectedSeats());
+			int ticketcost=view.regIsSelected()?8:4;
+			
+			JOptionPane.showMessageDialog(null, "Στοιχεία κράτησης: "+view.getSurname()+" "+view.getName()+
+					"\nΑριθμός εισιτηρίων: "+view.getSelectedSeats()+
+					"\nΣυνολική αξία εισιτηρίων: "+ticketcost*view.getSelectedSeats()+"\u20ac"+
+					"\nΗ αγορά σας για την ταινία "+view.getSelectedMovie()+" στις "+view.getDate() +" πραγματοποιήθηκε με επιτυχία."+
+					"\nΥπόλοιπο διαθέσιμων θέσεων: "+model.getMovieSeats(view.getSelectedMovie())+
+					"\nΚαλή διασκέδαση."
+					, "Επιτυχής Αγορά", 1);		
+			view.reset();	
+		}else if(!isStringAlpha(view.getName())){	
+			JOptionPane.showMessageDialog(null,"Λάθος όνομα","Λάθος εισαγωγή",1);
+			view.reset();
+		}else if(!isStringAlpha(view.getSurname())){	
+			JOptionPane.showMessageDialog(null,"Λάθος επίθετο","Λάθος εισαγωγή",1);
+			view.reset();
+		}else if(!isNumber(view.getPhone())){	
+			JOptionPane.showMessageDialog(null,"Λάθος τηλέφωνο","Λάθος εισαγωγή",1);
+			view.reset();
+		}else if(!view.hasSelectedSeats()){	
+			JOptionPane.showMessageDialog(null,"Παρακαλώ επιλέξτε θέσεις","Λάθος εισαγωγή",1);
+			view.reset();
+		}
+	}
 	
 	public boolean isStringAlpha(String aString){
 	    int charCount=0;
@@ -68,7 +73,7 @@ public class Controller{
 	        return true;
 	}
 	
-	public boolean isNumeric(String aString){
+	public boolean isNumber(String aString){
 	    int charCount=0;
 	    String numbers = "0123456789";
 	    if(aString.length() != 10) return false;//zero length string ain't alpha
